@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        fieldset {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Rédacteurs</legend>
+        <table>
+            <thead>
+                <th>Nom d'utilisateur</th>
+                <th>E-mail</th>
+            </thead>
+            <tbody>
+    {% for redacteur in redacteurs -%}
+                <tr>
+                    <td>{{redacteur.username}}</td>
+                    <td><a href="mailto:{{redacteur.email}}">{{redacteur.email}}</a></td>
+                </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+    </fieldset>
+</body>
+</html>
