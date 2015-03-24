@@ -1,0 +1,26 @@
+{% extends 'AppBundle:Admin:base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% block header %}
+    {% include 'AppBundle:Admin:main/top-menu.html.twig' %}
+{% endblock %}
+{% block main %}
+    {% include 'AppBundle:Admin:main/left-menu.html.twig' %}
+    <fieldset>
+        <legend>Rédacteurs</legend>
+        <table>
+            <thead>
+                <th>Nom d'utilisateur</th>
+                <th>E-mail</th>
+            </thead>
+            <tbody>
+    {% for redacteur in redacteurs -%}
+                <tr>
+                    <td>{{redacteur.username}}</td>
+                    <td><a href="mailto:{{redacteur.email}}">{{redacteur.email}}</a></td>
+                </tr>
+    {% endfor %}
+            </tbody>
+        </table>
+    </fieldset>
+{% endblock %}

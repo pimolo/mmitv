@@ -1,0 +1,13 @@
+{% block header %}
+    <div class="back-header">
+        <img class="back-logo" src="{{ asset('bundles/app/img/logo.png') }}" alt="logo mmi tv">
+        <h1>Bienvenue sur la page d'administration</h1>
+        <img class="back-login" src="{{ asset('bundles/app/img/login.png') }}" alt="login" width="90px"/>
+        <div class="back-account">
+        <h3>John Doe</h3>
+        <h8>admin</h8><br/>
+        <a href="{{ path('fos_user_security_logout') }}"><button type="button">x Déconnexion</button></a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}

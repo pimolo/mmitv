@@ -1,31 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-        fieldset {
-            display: inline-block;
-        }
-    </style>
-</head>
-<body>
-    <fieldset>
-        <legend>Rédacteurs</legend>
-        <table>
-            <thead>
-                <th>Nom d'utilisateur</th>
-                <th>E-mail</th>
-            </thead>
-            <tbody>
-    {% for redacteur in redacteurs -%}
-                <tr>
-                    <td>{{redacteur.username}}</td>
-                    <td><a href="mailto:{{redacteur.email}}">{{redacteur.email}}</a></td>
-                </tr>
-    {% endfor %}
-            </tbody>
-        </table>
-    </fieldset>
-</body>
-</html>
+{% extends 'AppBundle:Admin:base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+{% block header %}
+    {% include 'AppBundle:Admin:main/top-menu.html.twig' %}
+{% endblock %}
+{% block main %}
+    {% include 'AppBundle:Admin:main/left-menu.html.twig' %}
+    <div class="back-contenu">
+        <h1>Accueil</h1>
+        <a href="{{ path('app_admin_videos') }}"><img class="back-video" src="{{ asset('bundles/app/img/videos.png') }}"/></a><br/>
+        <a href="#" ><img class="back-programmation" src="{{ asset('bundles/app/img/programmation.png') }}"/></a><br/>
+        <a href="{{ path('app_admin_utilisateurs') }}"><img class="back-utilisateurs" src="{{ asset('bundles/app/img/utilisateurs.png') }}"/></a>
+    </div>
+{% endblock %}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} | Admin</title>
+    {% stylesheets 'bundles/app/css/admin.css' filter='cssrewrite'%}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {% javascripts %}
+
+    {% endjavascripts %}
+</head>
+<body>
+{% block header %}{% endblock %}
+{% block main %}{% endblock %}
+{% block footer %}{% endblock %}
+</body>
+</html>
