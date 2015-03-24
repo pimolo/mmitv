@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | Admin</title>
-    {% stylesheets 'bundles/app/css/admin.css' filter='cssrewrite'%}
+    {% stylesheets
+        'bundles/app/css/admin.css'
+        'bundles/avajax/css/ajax.css'
+        filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
-    {% javascripts %}
-
+    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    {% javascripts '@AvAjaxBundle/Resources/public/js/ajax.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 </head>
 <body>
