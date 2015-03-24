@@ -1,0 +1,44 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Video</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ entity.title }}</td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td>{{ entity.author }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ entity.duration }}</td>
+            </tr>
+            <tr>
+                <th>Embedcode</th>
+                <td>{{ entity.embedCode }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('video') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('video_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

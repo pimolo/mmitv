@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Video;
 
 class MainController extends Controller
 {
@@ -15,5 +16,15 @@ class MainController extends Controller
         $userManager = $this->get('fos_user.user_manager');
         $users = $userManager->findUsers();
         return $this->render('AppBundle:Admin:main/index.html.twig', array('redacteurs' => $users));
+    }
+
+    /**
+     * @Route("/videos", name="app_admin_homepage")
+     */
+    public function videosAction()
+    {
+        $videos = $this->getDoctrine()->getRepository('AppBundle:Video')->findAll();
+
+        return $this->render('AppBundle:Admin:main/video.html.twig', array('videos' => $videos));
     }
 }

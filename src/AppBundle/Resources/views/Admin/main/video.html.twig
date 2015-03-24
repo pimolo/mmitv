@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Videos | MMITV</title>
+</head>
+<body>
+    {% for video in videos %}
+        <p>Titre : {{ video.title }}</p>
+        <p>Durée : {{ video.duration|date('m:s') }}</p>
+        <p>Auteur : {{ video.author }}</p>
+        <p>Code embed : {{ video.embedCode|raw }}</p>
+    {% endfor %}
+</body>
+</html>
