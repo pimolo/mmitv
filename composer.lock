@@ -4,8 +4,55 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "25319f31d4846fd612066b0341710145",
+    "hash": "1a7915d1f160a65594285d58dbe502cb",
     "packages": [
+        {
+            "name": "appventus/ajax-bundle",
+            "version": "dev-master",
+            "target-dir": "AppVentus/AjaxBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/AppVentus/AvAjaxBundle.git",
+                "reference": "6731d8c39010349c3c19abaf23cffe3871f71206"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/AppVentus/AvAjaxBundle/zipball/6731d8c39010349c3c19abaf23cffe3871f71206",
+                "reference": "6731d8c39010349c3c19abaf23cffe3871f71206",
+                "shasum": ""
+            },
+            "require-dev": {
+                "symfony/class-loader": "2.1.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "AppVentus\\AjaxBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Leny Bernard (AppVentus)",
+                    "email": "leny@appventus.com",
+                    "homepage": "http://appventus.com"
+                }
+            ],
+            "description": "Symfony AjaxBundle",
+            "homepage": "http://appventus.com/bundles/ajax",
+            "keywords": [
+                "ajax"
+            ],
+            "time": "2015-02-25 09:18:09"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.3",
@@ -1847,6 +1894,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "appventus/ajax-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20
     },
     "prefer-stable": false,
