@@ -6,6 +6,7 @@ imports:
 framework:
     #esi:             ~
     #translator:      { fallbacks: ["%locale%"] }
+    translator:      ~ # default translating by FOSUserBundle
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -34,7 +35,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ 'AppBundle' ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -71,3 +72,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\User

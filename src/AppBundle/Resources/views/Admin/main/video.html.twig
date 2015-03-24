@@ -1,0 +1,14 @@
+{% extends 'AppBundle:Admin:base.html.twig' %}
+{% block title %}Videos{% endblock %}
+{% block header %}
+    {% include 'AppBundle:Admin:main/top-menu.html.twig' %}
+{% endblock %}
+{% block main -%}
+    {% include 'AppBundle:Admin:main/left-menu.html.twig' %}
+{% for video in videos %}
+        <p>Titre : {{ video.title }}</p>
+        <p>Durée : {{ video.duration|date('m:s') }}</p>
+        <p>Auteur : {{ video.author }}</p>
+        <p>Code embed : {{ video.embedCode|raw }}</p>
+{% endfor %}
+{% endblock %}
