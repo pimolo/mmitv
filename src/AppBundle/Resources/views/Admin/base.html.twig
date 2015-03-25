@@ -10,7 +10,9 @@
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-    {% javascripts '@AvAjaxBundle/Resources/public/js/ajax.js' %}
+    {% javascripts
+        '@AvAjaxBundle/Resources/public/js/ajax.js'
+        '@AppBundle/Resources/public/js/oembed.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 </head>
