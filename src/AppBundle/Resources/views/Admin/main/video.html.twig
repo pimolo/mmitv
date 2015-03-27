@@ -5,13 +5,25 @@
 {% endblock %}
 {% block main -%}
     {% include 'AppBundle:Admin:main/left-menu.html.twig' %}
+    <table>
+        <thead>
+            <th>Titre</th>
+            <th>Durée</th>
+            <th>Auteur</th>
+            <th>Vidéo</th>
+        </thead>
+        <tbody>
 {% for video in videos %}
-        <p>Titre : {{ video.title }}</p>
-        <p>Durée : {{ video.duration|date('m:s') }}</p>
-        <p>Auteur : {{ video.author }}</p>
-        <p>Code embed : {{ video.embedCode|raw }}</p>
+        <tr>
+            <td>{{ video.title }}</td>
+            <td>{{ video.duration|date('i:s') }}</td>
+            <td>{{ video.author }}</td>
+            <td>{{ video.embedCode|raw }}</td>
+        </tr>
 {% endfor %}
-<input type="text" />
+        </tbody>
+    </table>
+<label for="url">Url de la video : </label><input type="text" id="url" />
 <div id="infos">
     <p id="titre">Titre : </p>
     <p id="auteur">Auteur : </p>
