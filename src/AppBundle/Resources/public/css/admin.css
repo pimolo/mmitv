@@ -87,3 +87,6 @@ th, td {
     padding: 20px;
     border: 1px solid black;
 }
+#add {
+    display: none;
+}
