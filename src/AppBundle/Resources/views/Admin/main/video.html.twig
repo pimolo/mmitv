@@ -1,33 +1,88 @@
 {% extends 'AppBundle:Admin:base.html.twig' %}
 {% block title %}Videos{% endblock %}
-{% block header %}
-    {% include 'AppBundle:Admin:main/top-menu.html.twig' %}
-{% endblock %}
 {% block main -%}
-    {% include 'AppBundle:Admin:main/left-menu.html.twig' %}
-    <table>
-        <thead>
-            <th>Titre</th>
-            <th>Durée</th>
-            <th>Auteur</th>
-            <th>Vidéo</th>
-        </thead>
-        <tbody>
+    {{ parent() }}
+    <div class="col-md-10 content">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Tableau de bord
+            </div>
+            <div class="panel-body">
+                Bienvenue sur les pages d'administration de la MMITV, sur ce site vous trouverez
+                les fonctionnalités suivantes :<br/>
+                - Ajout de vidéos dans une playlist.<br/>
+                - Mise en place de la programmation de la MMITV.<br/>
+                - Ajout/Informations sur les utilisateurs de ce site.<br/>
+                Ce site a été codé sous Symfony 2, BootStrap, si vous avez des suggestions n'hésitez pas à contacter <a href="#">georgeslucas@gmail.com</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <div class="row">
+        <div class="col-md-6">
+        <label for="vid">Selectionnez une playlist :</label>
+        <select class="contenu-vid form-control" id="vid">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        </select>
+        <div class="playlist">
+            <h3 class="playlist-nom">NOM PLAYLIST</h3>
+            <p class="playlist-num-video">{{ videos|length }} vidéos</p>
+            <div class="clearfix"></div>
+            <div class="list-video">
 {% for video in videos %}
-        <tr>
-            <td>{{ video.title }}</td>
-            <td>{{ video.duration|date('i:s') }}</td>
-            <td>{{ video.author }}</td>
-            <td>{{ video.embedCode|raw }}</td>
-        </tr>
+                <div class="video row">
+                    <div class="col-md-6">{{ video.embedCode|raw }}</div>
+                    <!-- <img src="" alt="miniature" class="video-miniature"> -->
+                    <div class="col-md-6">
+                        <p>{{ video.title }}</p>
+                        <p>{{ video.author }}</p>
+                        <p>00:00</p>
+                    </div>
+                </div>
 {% endfor %}
-        </tbody>
-    </table>
-<label for="url">Url de la video : </label><input type="text" id="url" />
-<div id="infos">
-    <p id="titre">Titre : <span></span></p>
-    <p id="auteur">Auteur : <span></span></p>
-    <p id="video">Video : <span></span></p>
-    <button id="add">Ajouter</button>
-</div>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-6">
+            <h3 class="ajout-video-titre">Ajouter une vidéo</h3>
+            <div class="form-group">
+                <label for="title-input">Titre de la vidéo</label>
+                <input type="text" id="title-input" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="url-input">Url de la vidéo</label>
+                <input type="text" id="url-input" class="form-control">
+            </div>
+            <div id="infos">
+                <p id="auteur">Auteur : <span></span></p>
+                <div id="video"></div>
+            </div>
+                <label for="play">Ajouter à la playlist :</label>
+                <select class="contenu-vid form-control" id="play">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                </select><br/>
+                <button type="button" id="add-video" class="ajout-bouton btn btn-primary">Ajouter</button>
+            <div class="diffusion">
+                <h3 class="diffuser-video">Diffuser une playlist</h3>
+                <select class="contenu-vid form-control" id="play">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                </select><br/>
+                <select class="playlist-jour form-control">
+                <option>Jour</option>
+                </select>
+                <select class="playlist-heure form-control">
+                <option>Heure</option>
+                </select><br/>
+                <button type='button' class="diffuser-bouton btn btn-primary">Diffuser</button>
+            </div>
+        </div>
+        </div>
+    </div>
 {% endblock %}

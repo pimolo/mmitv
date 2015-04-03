@@ -1,6 +1,6 @@
 $('document').ready(function() {
     var $video;
-    $('#url').change(function() {
+    $('#url-input').change(function() {
         $video = $(this).val();
         // prévisualisation
         $.ajax({
@@ -13,10 +13,9 @@ $('document').ready(function() {
                     $('input').after($('<span />').html("L'url n'est pas supportée...").css('color', 'red'));
                 } else {
                     localStorage.setItem(localStorage.length++, JSON.stringify(data));
-                    $('#titre span').html(data.title);
+                    $('#title-input').val(data.title);
                     $('#auteur span').html(data.author_name);
-                    $('#video span').html(data.html);
-                    $('#add').show();
+                    $('#video').html(data.html);
                     console.log(data);
                 }
             }
@@ -24,14 +23,14 @@ $('document').ready(function() {
     });
 
         // enregistrement
-    $('#add').click(function() {
+    $('#add-video').click(function() {
         $.ajax({
             url: 'add-youtube-video',
             method: 'POST',
             data: 'url='+$video,
-            dataType: 'json',
             success: function(data) {
-                $('#add').after(data);
+                console.log(data);
+                $('input').after($('<span />').html(data));
             }
         });
     });

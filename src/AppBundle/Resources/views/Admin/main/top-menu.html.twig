@@ -1,13 +1,35 @@
-{% block header %}
-    <div class="back-header">
-        <img class="back-logo" src="{{ asset('bundles/app/img/logo.png') }}" alt="logo mmi tv">
-        <h1>Bienvenue sur la page d'administration</h1>
-        <img class="back-login" src="{{ asset('bundles/app/img/login.png') }}" alt="login" width="90px"/>
-        <div class="back-account">
-        <h3>John Doe</h3>
-        <h8>admin</h8><br/>
-        <a href="{{ path('fos_user_security_logout') }}"><button type="button">x Déconnexion</button></a>
-        </div>
-    </div>
-    <div class="clearfix"></div>
-{% endblock %}
+    <nav class="navbar navbar-default navbar-static-top navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ path('app_admin_accueil') }}">
+                    <img src="{{ asset('bundles/app/img/logo.png') }}" width="80px">
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="compte dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color:white;">
+                            Mon Compte
+                            <span class="caret"></span></a>
+                            <ul class="dropdown-menu menu" role="menu">
+                                <li class="dropdown-header"></li>
+                                <li class="photo"><img class="login" src="{{ asset('bundles/app/img/login.png') }}" width="50px"></li>
+                                <li>John Doe</li>
+                                <li>Administrateur</li>
+                                <li class="divider"></li>
+                                <li><a href="{{ path('fos_user_security_logout') }}" style="color:white;">Déconnexion</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>

@@ -33,6 +33,15 @@ class MainController extends Controller
     {
         $userManager = $this->get('fos_user.user_manager');
         $users = $userManager->findUsers();
+
         return $this->render('AppBundle:Admin:main/users.html.twig', array('redacteurs' => $users));
+    }
+
+    /**
+     * @Route("/planning", name="app_admin_planning")
+     */
+    public function planningAction()
+    {
+        return $this->render('AppBundle:Admin:main/planning.html.twig');
     }
 }

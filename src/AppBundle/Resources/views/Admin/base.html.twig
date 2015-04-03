@@ -4,21 +4,30 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | Admin</title>
     {% stylesheets
-        'bundles/app/css/admin.css'
+        'bundles/app/css/bootstrap.min.css'
         'bundles/avajax/css/ajax.css'
+        'bundles/app/css/style.css'
+        'bundles/app/css/style_login.css'
         filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
     {% javascripts
+        '@AppBundle/Resources/public/js/jquery-1.11.2.min.js'
+        '@AppBundle/Resources/public/js/bootstrap.min.js'
         '@AvAjaxBundle/Resources/public/js/ajax.js'
         '@AppBundle/Resources/public/js/oembed.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 </head>
 <body>
-{% block header %}{% endblock %}
-{% block main %}{% endblock %}
+{% block header %}
+    {% include 'AppBundle:Admin:main/top-menu.html.twig' %}
+{% endblock %}
+<div class="container-fluid main-container">
+{% include 'AppBundle:Admin:main/left-menu.html.twig' %}
+{% block main %}
+{% endblock %}
+</div>
 {% block footer %}{% endblock %}
 </body>
 </html>
