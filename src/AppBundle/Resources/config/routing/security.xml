@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/routing http://symfony.com/schema/routing/routing-1.0.xsd">
 
     <route id="fos_user_security_login" pattern="/connexion">
-        <default key="_controller">FOSUserBundle:Security:login</default>
+        <default key="_controller">AppBundle:Security/CustomSecurity:login</default>
     </route>
 
     <route id="fos_user_security_check" pattern="/verification">
