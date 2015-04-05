@@ -176,9 +176,6 @@ h1.page-header {
 .contenu-prog{
     margin-left:36%
 }
-fieldset {
-    display: inline-block;
-}
 th, td {
     padding: 20px;
     border: 1px solid black;
@@ -186,7 +183,7 @@ th, td {
 #add {
     display: none;
 }
-iframe {
+.list-video iframe {
     width: 240px;
     height: 135px;
     float: left;

@@ -11,12 +11,16 @@ $('document').ready(function() {
                 $('#infos div').html('');
                 if (data.error) {
                     $('input').after($('<span />').html("L'url n'est pas supportée...").css('color', 'red'));
+                    $('#url-input').parent('.form-group').removeClass('has-success');
+                    $('#url-input').parent('.form-group').addClass('has-error');
                 } else {
-                    localStorage.setItem(localStorage.length++, JSON.stringify(data));
+                    $('#url-input').parent('.form-group').removeClass('has-error');
+                    $('#url-input').parent('.form-group').addClass('has-success');
+                    // localStorage.setItem(localStorage.length++, JSON.stringify(data));
                     $('#title-input').val(data.title);
                     $('#auteur span').html(data.author_name);
                     $('#video').html(data.html);
-                    console.log(data);
+                    // console.log(data);
                 }
             }
         });
