@@ -1,0 +1,16 @@
+            <h3 class="playlist-nom">{{ playlist.title }}</h3>
+            <p class="playlist-num-video">{{ playlist.videos|length }} vidéos</p>
+            <div class="clearfix"></div>
+            <div class="list-video">
+{% for video in playlist.videos %}
+                <div class="video row">
+                    <div class="col-md-6">{{ video.embedCode|raw }}</div>
+                    <!-- <img src="" alt="miniature" class="video-miniature"> -->
+                    <div class="col-md-6">
+                        <p>{{ video.title }}</p>
+                        <p>{{ video.author }}</p>
+                        <p>{{ video.duration|date('i:s') }}</p>
+                    </div>
+                </div>
+{% endfor %}
+            </div>

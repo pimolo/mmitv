@@ -1,4 +1,7 @@
 $('document').ready(function() {
+    $('#playlistSelect').change(function() {
+        $(this).parent('form').submit();
+    });
     var $video;
     $('#url-input').change(function() {
         $video = $(this).val();

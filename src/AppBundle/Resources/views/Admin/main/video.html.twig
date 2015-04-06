@@ -20,32 +20,19 @@
     <div class="col-md-2"></div>
     <div class="col-md-10">
         <div class="row">
-        <div class="col-md-6">
-        <label for="vid">Selectionnez une playlist :</label>
-        <select class="contenu-vid form-control" id="vid">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        </select>
-        <div class="playlist">
-            <h3 class="playlist-nom">NOM PLAYLIST</h3>
-            <p class="playlist-num-video">{{ videos|length }} vidéos</p>
-            <div class="clearfix"></div>
-            <div class="list-video">
-{% for video in videos %}
-                <div class="video row">
-                    <div class="col-md-6">{{ video.embedCode|raw }}</div>
-                    <!-- <img src="" alt="miniature" class="video-miniature"> -->
-                    <div class="col-md-6">
-                        <p>{{ video.title }}</p>
-                        <p>{{ video.author }}</p>
-                        <p>00:00</p>
+            <div class="col-md-6">
+                <form id="form" action="get-videos" method="GET" data-toggle="ajax" data-update="playlist" />
+                    <label for="vid">Selectionnez une playlist :</label>
+                    <select name="playlist_id" id="playlistSelect" class="contenu-vid form-control">
+                        <option data-form="#form" value="1">1</option>
+                        <option data-form="#form" value="2">2</option>
+                        <option data-form="#form" value="3">3</option>
+                    </select>
+                </form>
+                    <div id="playlist">
+{% include 'AppBundle:Admin:partials/list-videos.html.twig' with {'playlist': playlist} only %}
                     </div>
-                </div>
-{% endfor %}
             </div>
-        </div>
-        </div>
         <div class="col-md-6">
             <h3 class="ajout-video-titre">Ajouter une vidéo</h3>
             <fieldset>

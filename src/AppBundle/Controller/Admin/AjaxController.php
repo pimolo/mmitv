@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Video;
+use AppBundle\Entity\Playlist;
 
 class AjaxController extends Controller
 {
@@ -59,7 +60,7 @@ class AjaxController extends Controller
     }
 
     /**
-     * @Route("/add-youtube-video", name="app_admin_add_video")
+     * @Route("/add-youtube-video", name="app_admin_add_youtube_video")
      * @Method("POST")
      */
     public function addYoutubeVideoAction(Request $request)
@@ -81,5 +82,26 @@ class AjaxController extends Controller
         $em->flush();
 
         return new Response('Vidéo '.$infos->provider_name.' bien ajoutée !', 200, array('Content-Type' => 'text/html'));
+    }
+
+    /**
+     * @Route("/get-videos", name="app_admin_show_playlist_videos")
+     * @Method("GET")
+     */
+    public function showVideosByPlaylist(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $playlistId = $request->query->get('playlist_id');
+            $playlist = $this->getDoctrine()->getRepository('AppBundle:Playlist')->find($playlistId);
+
+            if (!$playlist) {
+                throw $this->createNotFoundException('Unable to find Playlist entity.');
+            }
+
+            return $this->render('AppBundle:Admin:partials/list-videos.html.twig', array('playlist' => $playlist));
+        } else {
+            throw $this->createAccessDeniedException('Ce que vous voulez voir n\'est pas accessible.');
+        }
+
     }
 }
