@@ -180,9 +180,6 @@ th, td {
     padding: 20px;
     border: 1px solid black;
 }
-#add {
-    display: none;
-}
 .list-video iframe {
     width: 240px;
     height: 135px;

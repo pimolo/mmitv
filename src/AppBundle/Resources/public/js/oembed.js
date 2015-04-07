@@ -29,19 +29,6 @@ $('document').ready(function() {
         });
     });
 
-        // enregistrement
-    $('#add-video').click(function() {
-        $.ajax({
-            url: 'add-youtube-video',
-            method: 'POST',
-            data: 'url='+$video,
-            success: function(data) {
-                console.log(data);
-                $('input').after($('<span />').html(data));
-            }
-        });
-    });
-
     // $('body').on('click', 'button', function(e) {
     //     console.log('test');
     //     for (var i = localStorage.length - 1; i >= 0; i--) {

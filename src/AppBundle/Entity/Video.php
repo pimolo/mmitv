@@ -50,7 +50,7 @@ class Video
     private $embedCode;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Playlist", inversedBy="video")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Playlist", inversedBy="videos")
      */
     private $playlist;
 

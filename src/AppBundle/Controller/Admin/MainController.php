@@ -21,9 +21,9 @@ class MainController extends Controller
      */
     public function videosAction()
     {
-        $playlist = $this->getDoctrine()->getRepository('AppBundle:Playlist')->find(1);
+        $playlists = $this->getDoctrine()->getRepository('AppBundle:Playlist')->findAll();
 
-        return $this->render('AppBundle:Admin:main/video.html.twig', array('playlist' => $playlist));
+        return $this->render('AppBundle:Admin:main/video.html.twig', array('playlists' => $playlists));
     }
 
     /**
