@@ -5,22 +5,42 @@
     {% include 'AppBundle:Admin:main/top-menu.html.twig' %}
 {% endblock %}
 {% block main %}
-    {% include 'AppBundle:Admin:main/left-menu.html.twig' %}
-    <fieldset>
-        <legend>Rédacteurs</legend>
-        <table>
-            <thead>
-                <th>Nom d'utilisateur</th>
-                <th>E-mail</th>
-            </thead>
-            <tbody>
-    {% for redacteur in redacteurs -%}
-                <tr>
-                    <td>{{redacteur.username}}</td>
-                    <td><a href="mailto:{{redacteur.email}}">{{redacteur.email}}</a></td>
-                </tr>
-    {% endfor %}
-            </tbody>
-        </table>
-    </fieldset>
+        <div class="col-md-10 content">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Tableau de bord
+                </div>
+                <div class="panel-body">
+                    Bienvenue sur les pages d'administration de la MMITV, sur ce site vous trouverez
+                    les fonctionnalités suivantes :<br/>
+                    - Ajout de vidéos dans une playlist.<br/>
+                    - Mise en place de la programmation de la MMITV.<br/>
+                    - Ajout/Informations sur les utilisateurs de ce site.<br/>
+                    Ce site a été codé sous Symfony 2, BootStrap, si vous avez des suggestions n'hésitez pas à contacter <a href="#">georgeslucas@gmail.com</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+        <div class="col-md-10">
+            <h1 class="contenu-prog">Utilisateurs</h1>
+            <div class="col-md-5">
+            {% for redacteur in redacteurs -%}
+                <div class="utilisateur-info">
+                    <img src="{{ asset('bundles/app/img/login.png') }}" alt="login" class="info-image">
+                    <p class="info-utilisateur">{{redacteur.username}}<br/>Admin</p>
+                    <button type="button" class="info-bouton">X</button>
+                    <div class="clearfix"></div>
+                </div>
+            {% endfor %}
+            </div>
+            <div class="col-md-5">
+                <h3 class="ajout-utilisateur-titre">Ajouter un utilisateur</h3>
+                <div class="ajout-utilisateur">
+                    Nom <input type="text" class="ajout-utilisateur-nom form-control input-normal"><br/>
+                    Prénom <input type="text" class="ajout-utilisateur-prenom form-control input-normal"><br/>
+                    Email <input type="text" class="ajout-utilisateur-email form-control input-normal"><br/>
+                    <button type="button" class="ajout-bouton btn btn-primary">Ajouter</button>
+                </div>
+            </div>
+        </div>
 {% endblock %}

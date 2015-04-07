@@ -1,0 +1,29 @@
+{% extends 'AppBundle:Admin:base.html.twig' %}
+{% block title %}Planning{% endblock %}
+{% block main -%}
+                <div class="col-md-10 content">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Tableau de bord
+                        </div>
+                        <div class="panel-body">
+                            Bienvenue sur les pages d'administration de la MMITV, sur ce site vous trouverez
+                            les fonctionnalités suivantes :<br/>
+                            - Ajout de vidéos dans une playlist.<br/>
+                            - Mise en place de la programmation de la MMITV.<br/>
+                            - Ajout/Informations sur les utilisateurs de ce site.<br/>
+                            Ce site a été codé sous Symfony 2, BootStrap, si vous avez des suggestions n'hésitez pas à contacter <a href="#">georgeslucas@gmail.com</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
+                    <h1 class="contenu-prog">Programmation</h1>
+                    <div class="col-md-5">
+                        <!-- grille de prod -->
+                    </div>
+                    <div class="col-md-5">
+                        <!-- liste de videos drag&drop -->
+                    </div>
+                </div>
+{% endblock %}

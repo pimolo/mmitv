@@ -21,9 +21,9 @@ class MainController extends Controller
      */
     public function videosAction()
     {
-        $videos = $this->getDoctrine()->getRepository('AppBundle:Video')->findAll();
+        $playlists = $this->getDoctrine()->getRepository('AppBundle:Playlist')->findAll();
 
-        return $this->render('AppBundle:Admin:main/video.html.twig', array('videos' => $videos));
+        return $this->render('AppBundle:Admin:main/video.html.twig', array('playlists' => $playlists));
     }
 
     /**
@@ -33,6 +33,15 @@ class MainController extends Controller
     {
         $userManager = $this->get('fos_user.user_manager');
         $users = $userManager->findUsers();
+
         return $this->render('AppBundle:Admin:main/users.html.twig', array('redacteurs' => $users));
+    }
+
+    /**
+     * @Route("/planning", name="app_admin_planning")
+     */
+    public function planningAction()
+    {
+        return $this->render('AppBundle:Admin:main/planning.html.twig');
     }
 }
