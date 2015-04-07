@@ -1,4 +1,7 @@
 $('document').ready(function() {
+    $('#playlistSelect').change(function() {
+        $(this).parent('form').submit();
+    });
     var $video;
     $('#url-input').change(function() {
         $video = $(this).val();
@@ -22,19 +25,6 @@ $('document').ready(function() {
                     $('#video').html(data.html);
                     // console.log(data);
                 }
-            }
-        });
-    });
-
-        // enregistrement
-    $('#add-video').click(function() {
-        $.ajax({
-            url: 'add-youtube-video',
-            method: 'POST',
-            data: 'url='+$video,
-            success: function(data) {
-                console.log(data);
-                $('input').after($('<span />').html(data));
             }
         });
     });

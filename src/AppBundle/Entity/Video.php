@@ -49,11 +49,15 @@ class Video
      */
     private $embedCode;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Playlist", inversedBy="videos")
+     */
+    private $playlist;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -63,7 +67,7 @@ class Video
     /**
      * Set title
      *
-     * @param string $title
+     * @param  string $title
      * @return Video
      */
     public function setTitle($title)
@@ -76,7 +80,7 @@ class Video
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -86,7 +90,7 @@ class Video
     /**
      * Set author
      *
-     * @param string $author
+     * @param  string $author
      * @return Video
      */
     public function setAuthor($author)
@@ -99,7 +103,7 @@ class Video
     /**
      * Get author
      *
-     * @return string 
+     * @return string
      */
     public function getAuthor()
     {
@@ -109,7 +113,7 @@ class Video
     /**
      * Set duration
      *
-     * @param integer $duration
+     * @param  integer $duration
      * @return Video
      */
     public function setDuration($duration)
@@ -122,7 +126,7 @@ class Video
     /**
      * Get duration
      *
-     * @return integer 
+     * @return integer
      */
     public function getDuration()
     {
@@ -132,7 +136,7 @@ class Video
     /**
      * Set embedCode
      *
-     * @param string $embedCode
+     * @param  string $embedCode
      * @return Video
      */
     public function setEmbedCode($embedCode)
@@ -145,10 +149,33 @@ class Video
     /**
      * Get embedCode
      *
-     * @return string 
+     * @return string
      */
     public function getEmbedCode()
     {
         return $this->embedCode;
+    }
+
+    /**
+     * Set playlist
+     *
+     * @param  \AppBundle\Entity\Playlist $playlist
+     * @return Video
+     */
+    public function setPlaylist(\AppBundle\Entity\Playlist $playlist = null)
+    {
+        $this->playlist = $playlist;
+
+        return $this;
+    }
+
+    /**
+     * Get playlist
+     *
+     * @return \AppBundle\Entity\Playlist
+     */
+    public function getPlaylist()
+    {
+        return $this->playlist;
     }
 }

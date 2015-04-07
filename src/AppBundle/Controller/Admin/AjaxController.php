@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Video;
+use AppBundle\Entity\Playlist;
 
 class AjaxController extends Controller
 {
@@ -59,27 +60,55 @@ class AjaxController extends Controller
     }
 
     /**
-     * @Route("/add-youtube-video", name="app_admin_add_video")
+     * @Route("/add-youtube-video", name="app_admin_add_youtube_video")
      * @Method("POST")
      */
     public function addYoutubeVideoAction(Request $request)
     {
-        $id = $request->request->get('url');
-        $infos = json_decode(file_get_contents('http://www.youtube.com/oembed?url='.$id.'&format=json'));
-        $title = $infos->title;
+        $em = $this->getDoctrine()->getManager();
+
+        $url = $request->request->get('url');
+        $infos = json_decode(file_get_contents('http://www.youtube.com/oembed?url='.$url.'&format=json'));
+
+        $title = $request->request->get('title');
         $author = $infos->author_name;
-        $duration = 120;
+
         $embed_code = $infos->html;
+        $duration = 120;
+
+        $playlistId = $request->request->get('playlist_id');
+        $playlist = $em->getRepository('AppBundle:Playlist')->find($playlistId);
 
         $video = new Video();
         $video->setTItle($title);
         $video->setAuthor($author);
         $video->setDuration($duration);
         $video->setEmbedCode($embed_code);
-        $em = $this->getDoctrine()->getManager();
+        $video->setPlaylist($playlist);
         $em->persist($video);
         $em->flush();
 
-        return new Response('Vidéo '.$infos->provider_name.' bien ajoutée !', 200, array('Content-Type' => 'text/html'));
+        return new Response('Vidéo "'.$title.'" ('.$infos->provider_name.') bien ajoutée à la playlist '.$playlist->getTitle().' !', 200, array('Content-Type' => 'text/html'));
+    }
+
+    /**
+     * @Route("/get-videos", name="app_admin_show_playlist_videos")
+     * @Method("GET")
+     */
+    public function showVideosByPlaylist(Request $request)
+    {
+        if ($request->isXmlHttpRequest()) {
+            $playlistId = $request->query->get('playlist_id');
+            $playlist = $this->getDoctrine()->getRepository('AppBundle:Playlist')->find($playlistId);
+
+            if (!$playlist) {
+                throw $this->createNotFoundException('Unable to find Playlist entity.');
+            }
+
+            return $this->render('AppBundle:Admin:partials/list-videos.html.twig', array('playlist' => $playlist));
+        } else {
+            throw $this->createAccessDeniedException('Ce que vous voulez voir n\'est pas accessible.');
+        }
+
     }
 }
