@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} | MMITV Troyes</title>
+    {% stylesheets
+        'bundles/app/css/style_front.css'
+        filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+</head>
+<body>
+{% block header %}
+{% endblock %}
+{% block main %}
+{% endblock %}
+{% block footer %}{% endblock %}
+</body>
+</html>
