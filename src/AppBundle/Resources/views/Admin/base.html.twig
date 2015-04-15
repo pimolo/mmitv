@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %} | Admin</title>
+{% block styles %}
     {% stylesheets
         'bundles/app/css/bootstrap.min.css'
         'bundles/avajax/css/ajax.css'
@@ -10,6 +11,8 @@
         filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+{% endblock %}
+{% block js %}
     {% javascripts
         '@AppBundle/Resources/public/js/jquery-1.11.2.min.js'
         '@AppBundle/Resources/public/js/bootstrap.min.js'
@@ -17,6 +20,7 @@
         '@AppBundle/Resources/public/js/oembed.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+{% endblock %}
 </head>
 <body>
 {% block header %}

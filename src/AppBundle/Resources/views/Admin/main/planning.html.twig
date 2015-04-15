@@ -1,29 +1,75 @@
 {% extends 'AppBundle:Admin:base.html.twig' %}
-{% block title %}Planning{% endblock %}
+{% block styles %}
+{{ parent() }}
+    {% stylesheets
+        'bundles/app/css/fullcalendar/fullcalendar.min.css'
+        'bundles/app/css/fullcalendar/planning_custom.css'
+        filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/app/css/fullcalendar/fullcalendar.print.css') }}" media="print">
+{% endblock %}
+{% block js %}
+{{ parent() }}
+    {% javascripts
+        '@AppBundle/Resources/public/js/jquery-1.11.2.min.js'
+        '@AppBundle/Resources/public/js/fullcalendar/lib/moment.min.js'
+        '@AppBundle/Resources/public/js/fullcalendar/fullcalendar.min.js'
+        '@AppBundle/Resources/public/js/fullcalendar/lang/fr.js'
+        '@AppBundle/Resources/public/js/fullcalendar/lib/jquery-ui.custom.min.js'
+        '@AppBundle/Resources/public/js/fullcalendar/planning_custom.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 {% block main -%}
-                <div class="col-md-10 content">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Tableau de bord
-                        </div>
-                        <div class="panel-body">
-                            Bienvenue sur les pages d'administration de la MMITV, sur ce site vous trouverez
-                            les fonctionnalités suivantes :<br/>
-                            - Ajout de vidéos dans une playlist.<br/>
-                            - Mise en place de la programmation de la MMITV.<br/>
-                            - Ajout/Informations sur les utilisateurs de ce site.<br/>
-                            Ce site a été codé sous Symfony 2, BootStrap, si vous avez des suggestions n'hésitez pas à contacter <a href="#">georgeslucas@gmail.com</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-                <div class="col-md-10">
-                    <h1 class="contenu-prog">Programmation</h1>
-                    <div class="col-md-5">
-                        <!-- grille de prod -->
-                    </div>
-                    <div class="col-md-5">
-                        <!-- liste de videos drag&drop -->
-                    </div>
-                </div>
+    <div class="col-md-10 content">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Tableau de bord
+            </div>
+            <div class="panel-body">
+                Bienvenue sur les pages d'administration de la MMITV, sur ce site vous trouverez
+                les fonctionnalités suivantes :<br/>
+                - Ajout de vidéos dans une playlist.<br/>
+                - Mise en place de la programmation de la MMITV.<br/>
+                - Ajout/Informations sur les utilisateurs de ce site.<br/>
+                Ce site a été codé sous Symfony 2, BootStrap, si vous avez des suggestions n'hésitez pas à contacter <a href="#">georgeslucas@gmail.com</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-10">
+        <h1 class="contenu-prog">Programmation</h1>
+        <div class="col-md-10">
+            <!-- grille de prod -->
+            <div id='calendar'></div>
+        </div>
+        <div class="col-md-2">
+            <!-- liste de videos drag&drop -->
+            <span class="custom-dropdown custom-dropdown--white">
+                <select class="custom-dropdown__select custom-dropdown__select--white">
+                    <option>Mes Playlists</option>
+                    <option>Playlist 1</option>
+                    <option>Playlist 2</option>
+                    <option>Playlist 3</option>
+                    <option>Playlist 4</option>
+                </select>
+            </span>
+
+            <div id='external-events'>
+                <div class='fc-event' data-duration="120"><p>My Event 1 </p><img class="img-responsive" /></div>
+                <div class='fc-event'><p>My Event 2 </p><img class="img-responsive" /></div>
+                <div class='fc-event'><p>My Event 3 </p><img class="img-responsive" /></div>
+                <div class='fc-event'><p>My Event 4 </p><img class="img-responsive" /></div>
+                <div class='fc-event'><p>My Event 5 </p><img class="img-responsive" /></div>
+                <p>
+                    <input type='checkbox' id='drop-remove' />
+                    <label for='drop-remove'>Supprimer après l'ajout</label>
+                </p>
+            </div>
+
+        </div>
+        <div style='clear:both'></div>
+
+    </div>
 {% endblock %}
