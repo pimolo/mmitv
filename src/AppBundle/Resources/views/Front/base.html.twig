@@ -5,9 +5,67 @@
     <title>{% block title %}{% endblock %} | MMITV Troyes</title>
     {% stylesheets
         'bundles/app/css/style_front.css'
+        'bundles/app/css/bootstrap.min.css'
+        'bundles/app/css/bootstrap-theme.min.css'
         filter='cssrewrite' %}
         <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
+    {% javascripts
+        '@AppBundle/Resources/public/js/jquery-1.11.2.min.js'
+        '@AppBundle/Resources/public/js/sugar.min.js'
+        '@AppBundle/Resources/public/js/bootstrap.min.js'
+        '@AppBundle/Resources/public/js/jquery.simpleWeather.min.js'
+        '@AppBundle/Resources/public/js/meteo.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+            <script>
+        $(document).ready(function(){
+        function addZero(i) {
+            if (i < 10) {
+                i = "0" + i;
+            }
+            return i;
+        }
+          var d = new Date();
+          var h = addZero(d.getHours());
+          var m = addZero(d.getMinutes());
+          var s = addZero(d.getSeconds());
+          var secondes = s;
+          var minutes = m;
+          var heures = h;
+          var on = true;
+          timerID = setInterval(chrono, 1000);
+          var reset = false;
+
+
+          function chrono(){
+            secondes += 1;
+
+            if(secondes>59){
+              minutes += 1;
+              secondes = 0;
+            }
+             if(minutes>59){
+                heures +=1;
+                minutes = 0;
+             }
+
+            if(minutes<10 && secondes<10){
+              $("#timer").html(heures+" : 0"+minutes+" : 0"+secondes);
+            }
+              else if(minutes<10 && secondes>=10){
+                $("#timer").html(heures+" : 0"+minutes+" : "+secondes);
+            }
+            else if(minutes>=10 && secondes<10){
+                $("#timer").html(+heures+" : "+minutes+" : 0"+secondes);
+            }
+            else if(minutes>=10 && secondes>10){
+                $("#timer").html(+heures+" : "+minutes+" : "+secondes);
+            }
+          }
+
+        });
+        </script>
 </head>
 <body>
 {% block header %}

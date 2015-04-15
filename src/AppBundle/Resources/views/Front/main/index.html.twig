@@ -1,37 +1,56 @@
 {% extends 'AppBundle:Front:base.html.twig' %}
 {% block main %}
-    <div class="tv-barre">
-        <div class="tv-date">
-            jeudi 19 mars
-        </div>
-        <div class="tv-heure">
-        </div>
-    </div>
-    <div class="tv-player">
-        <iframe src="http://www.youtube.com/embed/videoseries?list=PLhe1Ui53WFzLM4K5YB0SstFrAuMppBIXR"
-                width="100%" height="700" frameborder="0"></iframe><!-- juste a modifier le après list= pour modifier la playlist -->
-    </div>
-    <div class="tv-meteo">
-
-    </div>
-    <div class="tv-programme">
-
-    </div>
-    <div class="tv-twitter">
-               <a class="twitter-timeline"
-                  href="https://twitter.com/mmi_troyes"
-                  data-widget-id="573774469891813376"
-                  data-theme="dark"
-                  data-link-color="#cc0000"
-                  data-related="twitterapi,twitter"
-                  data-aria-polite="assertive"
-                  width="100%"
-                  height="140px">
-                Tweets by @MMI_Troyes
-                </a>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 head">
+                    <h1 class="jour-tele">Mardi 14 Avril 2015</h1>
+                    <p class="horaire-tele" id="timer"></p>
+                    <div class="clearfix"></div>
+            </div>
+                <div class="col-lg-10 col-md-10 col-sm-10 youtube">
+                    <!-- API Youtube -->
+                <iframe src="http://www.youtube.com/embed/videoseries?list=PLhe1Ui53WFzLM4K5YB0SstFrAuMppBIXR"
+                width="100%" height="1080" frameborder="0"></iframe>
+                <!-- Juste à modifier le après "list=" pour modifier la playlist -->
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 meteo">
+                    <!-- API Météo -->
+                    <div id="weather"></div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 planning">
+                    <!-- API Planning -->
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2 twitter">
+                    <!-- API Twitter -->
+                      <a class="twitter-timeline"
+                      href="https://twitter.com/mmi_troyes"
+                      data-widget-id="573774469891813376"
+                      data-theme="dark"
+                      data-link-color="#cc0000"
+                      data-related="twitterapi,twitter"
+                      data-aria-polite="assertive"
+                      width="100%"
+                      height="444px">
+                      Tweets by @MMI_Troyes
+                      </a>
                 <script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script>
-    </div>
-    <div class="tv-planning">
-
-    </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-lg-10 col-md-10 col-sm-10 direct">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <img src="{{ asset('bundles/app/img/logo4.png') }}" alt="logo" height="84px">
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <h1 class="moment">En ce moment</h1>
+                        <p class="horaire">10:30 - 12:00</p>
+                        <p class="nom-video">Playlist Photoshop</p>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 emploi">
+                    <!-- API Emploi du temps -->
+                </div>
+        </div>
 {% endblock %}
