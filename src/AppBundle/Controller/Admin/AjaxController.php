@@ -107,8 +107,29 @@ class AjaxController extends Controller
 
             return $this->render('AppBundle:Admin:partials/list-videos.html.twig', array('playlist' => $playlist));
         } else {
-            throw $this->createAccessDeniedException('Ce que vous voulez voir n\'est pas accessible.');
+            throw $this->createAccessDeniedException("Ce que vous voulez voir n'est pas accessible.");
         }
 
+    }
+
+    /**
+     * @Route("/create-playlist", name="app_admin_create_playlsit")
+     * @Method("POST")
+     */
+    public function createPlaylist(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isXmlHttpRequest()) {
+            $playlist = new Playlist();
+            $title = $request->request->get('title');
+            $playlist->setTitle($title);
+            $em->persist($playlist);
+            $em->flush();
+
+            return new Response('Playlist "'.$title.'" bien créée !');
+        } else {
+            throw $this->createAccessDeniedException("Ce que vous voulez voir n'est pas accessible.");
+        }
     }
 }
