@@ -36,6 +36,13 @@ class Video
     private $author;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="beginning_date", type="datetime", nullable=true)
+     */
+    private $beginningDate;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="duration", type="integer")
@@ -130,7 +137,7 @@ class Video
      */
     public function getDuration()
     {
-        return $this->duration;
+        return date('H:i:s', $this->duration);
     }
 
     /**
@@ -177,5 +184,28 @@ class Video
     public function getPlaylist()
     {
         return $this->playlist;
+    }
+
+    /**
+     * Set beginningDate
+     *
+     * @param  \DateTime $beginningDate
+     * @return Video
+     */
+    public function setBeginningDate($beginningDate)
+    {
+        $this->beginningDate = empty($beginningDate) ? null : new \DateTime($beginningDate);
+
+        return $this;
+    }
+
+    /**
+     * Get beginningDate
+     *
+     * @return \DateTime
+     */
+    public function getBeginningDate()
+    {
+        return $this->beginningDate;
     }
 }
