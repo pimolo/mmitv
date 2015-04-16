@@ -38,12 +38,12 @@ class Playlist
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="broadcast_date", type="datetime")
+     * @ORM\Column(name="broadcast_date", type="datetime", nullable=true)
      */
     private $broadcastDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Video", mappedBy="playlist")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Video", mappedBy="playlist", cascade={"remove"})
      */
 
     private $videos;

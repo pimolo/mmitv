@@ -1,4 +1,6 @@
             <h3 class="playlist-nom">{{ playlist.title }}</h3>
+            <a style="color:white;" href="delete-playlist/{{ playlist.id }}" data-toggle="ajax" data-target="confirmDelete">(supprimer cette playlist)</a>
+            <span id="confirmDelete"></span>
             <p class="playlist-num-video">{{ playlist.videos|length }} vidéos</p>
             <div class="clearfix"></div>
             <div class="list-video">
