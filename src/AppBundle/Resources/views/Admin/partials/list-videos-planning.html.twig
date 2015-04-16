@@ -1,0 +1,7 @@
+{% for video in playlist.videos %}
+                <div class="fc-event" data-duration="{{ video.duration }}" data-event='{"id": "{{ video.id }}", "title": "{{ video.title }}", "stick": true}'><p>{{ video.title }} </p><img class="img-responsive" /></div>
+{% endfor %}
+                <p>
+                    <input type='checkbox' id='drop-remove' checked/>
+                    <label for='drop-remove'>Supprimer après l'ajout</label>
+                </p>

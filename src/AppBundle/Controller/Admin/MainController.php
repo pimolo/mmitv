@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Video;
 
@@ -39,9 +40,13 @@ class MainController extends Controller
 
     /**
      * @Route("/planning", name="app_admin_planning")
+     * @Template()
      */
     public function planningAction()
     {
-        return $this->render('AppBundle:Admin:main/planning.html.twig');
+        $playlists = $this->getDoctrine()->getRepository('AppBundle:Playlist')->findAll();
+        $videos = $this->getDoctrine()->getRepository('AppBundle:Video')->findAll();
+
+        return array('playlists' => $playlists, 'videos' => $videos);
     }
 }
