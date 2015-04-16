@@ -11,36 +11,39 @@ class MainController extends Controller
 {
     /**
      * @Route("/", name="app_admin_accueil")
+     * @Template
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Admin:main/index.html.twig');
+        return array();
     }
 
     /**
      * @Route("/videos", name="app_admin_videos")
+     * @Template
      */
-    public function videosAction()
+    public function videoAction()
     {
         $playlists = $this->getDoctrine()->getRepository('AppBundle:Playlist')->findAll();
 
-        return $this->render('AppBundle:Admin:main/video.html.twig', array('playlists' => $playlists));
+        return array('playlists' => $playlists);
     }
 
     /**
      * @Route("/utilisateurs", name="app_admin_utilisateurs")
+     * @Template
      */
     public function usersAction()
     {
         $userManager = $this->get('fos_user.user_manager');
         $users = $userManager->findUsers();
 
-        return $this->render('AppBundle:Admin:main/users.html.twig', array('redacteurs' => $users));
+        return array('redacteurs' => $users);
     }
 
     /**
      * @Route("/planning", name="app_admin_planning")
-     * @Template()
+     * @Template
      */
     public function planningAction()
     {
