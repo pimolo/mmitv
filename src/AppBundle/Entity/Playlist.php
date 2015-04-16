@@ -43,7 +43,7 @@ class Playlist
     private $broadcastDate;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Video", mappedBy="playlist")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Video", mappedBy="playlist", cascade={"remove"})
      */
 
     private $videos;
