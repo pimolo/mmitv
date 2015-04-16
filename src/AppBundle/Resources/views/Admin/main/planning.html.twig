@@ -12,12 +12,10 @@
 {% block js %}
 {{ parent() }}
     {% javascripts
-        '@AppBundle/Resources/public/js/jquery-1.11.2.min.js'
+        '@AppBundle/Resources/public/js/fullcalendar/lib/jquery-ui.custom.min.js'
         '@AppBundle/Resources/public/js/fullcalendar/lib/moment.min.js'
         '@AppBundle/Resources/public/js/fullcalendar/fullcalendar.min.js'
-        '@AppBundle/Resources/public/js/fullcalendar/lang/fr.js'
-        '@AppBundle/Resources/public/js/fullcalendar/lib/jquery-ui.custom.min.js'
-        '@AppBundle/Resources/public/js/fullcalendar/planning_custom.js' %}
+        '@AppBundle/Resources/public/js/fullcalendar/lang/fr.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
@@ -47,23 +45,21 @@
         <div class="col-md-2">
             <!-- liste de videos drag&drop -->
             <span class="custom-dropdown custom-dropdown--white">
-                <select class="custom-dropdown__select custom-dropdown__select--white">
-                    <option>Mes Playlists</option>
-                    <option>Playlist 1</option>
-                    <option>Playlist 2</option>
-                    <option>Playlist 3</option>
-                    <option>Playlist 4</option>
+            <form action="get-videos-planning" method="GET" data-toggle="ajax" data-update="external-events">
+                <select name="playlist_id" class="custom-dropdown__select custom-dropdown__select--white">
+{% for playlist in playlists %}
+                    <option value="{{ playlist.id }}"{% if loop.first %} selected{% endif %}>{{ playlist.title }}</option>
+{% endfor %}
                 </select>
+            </form>
             </span>
 
             <div id='external-events'>
-                <div class='fc-event' data-duration="120"><p>My Event 1 </p><img class="img-responsive" /></div>
-                <div class='fc-event'><p>My Event 2 </p><img class="img-responsive" /></div>
-                <div class='fc-event'><p>My Event 3 </p><img class="img-responsive" /></div>
-                <div class='fc-event'><p>My Event 4 </p><img class="img-responsive" /></div>
-                <div class='fc-event'><p>My Event 5 </p><img class="img-responsive" /></div>
+{% for video in playlists|first.videos %}
+                <div class="fc-event" data-duration="{{ video.duration }}" data-event='{"id": "{{ video.id }}", "title": "{{ video.title }}", "stick": true}'><p>{{ video.title }} </p><img class="img-responsive" /></div>
+{% endfor %}
                 <p>
-                    <input type='checkbox' id='drop-remove' />
+                    <input type='checkbox' id='drop-remove' checked/>
                     <label for='drop-remove'>Supprimer après l'ajout</label>
                 </p>
             </div>
@@ -72,4 +68,121 @@
         <div style='clear:both'></div>
 
     </div>
+    <script type="text/javascript">
+    var ajaxPost = function(event) {
+    if (!confirm("La video sera lue " + event.start.calendar())) {
+        revertFunc();
+        $('#calendar').fullCalendar('removeEvents', calEvent.id);
+    } else {
+        console.log(event.id);
+        console.log(event.start.format());
+        $.ajax({
+            type: 'POST',
+            url: "plan-video",
+            data: {
+                video_id: event.id,
+                beginning_date: event.start.format()
+            },
+            success: function(data){
+                alert(data);
+            }
+        });
+    }
+};
+
+$(document).ready(function() {
+
+$('select').change(function() {
+    $(this).parent().submit();
+});
+
+
+    /* initialize the external events
+    -----------------------------------------------------------------*/
+
+    $('#external-events .fc-event').each(function() {
+
+        // store data so the calendar knows to render an event upon drop
+        // $(this).data('event', {
+        //     title: $.trim($(this).text()), // use the element's text as the event title
+        //     stick: true // maintain when user navigates (see docs on the renderEvent method)
+        // });
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+            zIndex: 999,
+            revert: true,      // will cause the event to go back to its
+            revertDuration: 0  //  original position after the drag
+        });
+
+    });
+
+
+    /* initialize the calendar
+    -----------------------------------------------------------------*/
+
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+        },
+        defaultView: 'agendaWeek', // affichage par semaine
+        timeFormat: 'H:mm', //
+        minTime: "08:00:00", // Debut de la journée a 8h
+        maxTime: "18:30:00", // fin de la journée 18h
+        allDaySlot: false, // Retirer la colonne allDay
+        dayNamesShort: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'], // Nom des date en fr et complete
+        editable:false,
+        eventDurationEditable: false,
+
+        droppable: true, // autorise des elements a etre dragués dans le calendrier
+        dragRevertDuration: 200,
+
+        events: [
+{% for video in videos if video.beginningDate is not null %}
+    {
+        "title": "{{ video.title|raw }}",
+        "start": "{{ video.beginningDate|date('Y-m-d\\TH:i:sP') }}",
+        "id": "{{ video.id }}"
+    },
+{% endfor %}
+],
+        eventOverloap: false,
+        slotEventOverlap : false,
+
+        weekends: false, // pas de WE
+        drop: function() {
+            // is the "remove after drop" checkbox checked?
+            if ($('#drop-remove').is(':checked')) {
+                // if so, remove the element from the "Draggable Events" list
+                $(this).remove();
+            }
+        },
+        eventClick: function (calEvent, jsEvent, view) {
+            $('#calendar').fullCalendar('removeEvents', calEvent.id);
+            $.ajax({
+                method: 'POST',
+                url: 'plan-video',
+                data: {
+                    video_id: calEvent._id,
+                    beginning_date: null
+                },
+                success: function(data){
+                    alert(data);
+                }
+            });
+        },
+
+        eventReceive: function(event){
+            ajaxPost(event);
+        },
+
+        eventDrop: function(event, jsEvent, ui, view) {
+            ajaxPost(event);
+        }
+
+    });
+});
+</script>
 {% endblock %}
