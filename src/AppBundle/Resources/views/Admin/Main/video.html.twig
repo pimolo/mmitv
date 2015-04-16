@@ -30,18 +30,25 @@
                     </select>
                 </form>
                 <div id="playlist">
+{% if playlists is not empty %}
 {% include 'AppBundle:Admin:partials/list-videos.html.twig' with {'playlist': playlists|first} only %}
+{% endif %}
                 </div>
-                <h3 class="ajout-video-titre">Ajouter une playlist</h3>
-                <form action="create-playlist" method="POST" data-toggle="ajax" data-update="createPlaylist">
-                    <div class="form-group">
-                        <label class="control-label" for="playlistTitle">Titre de la playlist</label>
-                        <input name="title" class="form-control" id="playlistTitle" />
-                    </div>
-                    <input type="submit" class="ajout-bouton btn btn-primary" />
-                    <div id="createPlaylist" class="text-success"></div>
-                </form>
-
+                <div class="diffusion">
+                    <h3 class="diffuser-video">Diffuser une playlist</h3>
+                    <select class="contenu-vid form-control" id="play">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    </select><br/>
+                    <select class="playlist-jour form-control">
+                    <option>Jour</option>
+                    </select>
+                    <select class="playlist-heure form-control">
+                    <option>Heure</option>
+                    </select><br/>
+                    <button type='button' class="diffuser-bouton btn btn-primary">Diffuser</button>
+                </div>
             </div>
         <div class="col-md-6">
             <h3 class="ajout-video-titre">Ajouter une vidéo</h3>
@@ -70,21 +77,15 @@
                 <input type="submit" class="ajout-bouton btn btn-primary" />
                 <div id="responseAdd" class="text-success"></div>
             </form>
-            <div class="diffusion">
-                <h3 class="diffuser-video">Diffuser une playlist</h3>
-                <select class="contenu-vid form-control" id="play">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                </select><br/>
-                <select class="playlist-jour form-control">
-                <option>Jour</option>
-                </select>
-                <select class="playlist-heure form-control">
-                <option>Heure</option>
-                </select><br/>
-                <button type='button' class="diffuser-bouton btn btn-primary">Diffuser</button>
-            </div>
+                <h3 class="ajout-video-titre">Ajouter une playlist</h3>
+                <form action="create-playlist" method="POST" data-toggle="ajax" data-update="createPlaylist">
+                    <div class="form-group">
+                        <label class="control-label" for="playlistTitle">Titre de la playlist</label>
+                        <input name="title" class="form-control" id="playlistTitle" />
+                    </div>
+                    <input type="submit" class="ajout-bouton btn btn-primary" />
+                    <div id="createPlaylist" class="text-success"></div>
+                </form>
         </div>
         </div>
     </div>

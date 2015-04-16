@@ -1,6 +1,6 @@
             <h3 class="playlist-nom">{{ playlist.title }}</h3>
-            <a style="color:white;" href="delete-playlist/{{ playlist.id }}" data-toggle="ajax" data-target="confirmDelete">(supprimer cette playlist)</a>
-            <span id="confirmDelete"></span>
+            <a style="color:white;" href="delete-playlist/{{ playlist.id }}" data-toggle="ajax" data-update="confirmDeletePlaylist">(supprimer cette playlist)</a>
+            <span style="color:white;" id="confirmDeletePlaylist"></span>
             <p class="playlist-num-video">{{ playlist.videos|length }} vidéos</p>
             <div class="clearfix"></div>
             <div class="list-video">
@@ -12,6 +12,8 @@
                         <p>{{ video.title }}</p>
                         <p>{{ video.author }}</p>
                         <p>{{ video.duration|date('i:s') }}</p>
+                        <p><a href="delete-video/{{ video.id }}" data-toggle="ajax" data-update="confirmDeleteVideo">Supprimer cette vidéo</a></p>
+                        <p id="confirmDeleteVideo"></p>
                     </div>
                 </div>
 {% endfor %}

@@ -92,6 +92,24 @@ class AjaxController extends Controller
     }
 
     /**
+     * @Route("/delete-video/{id}", name="app_admin_delete_video")
+     * @Method("GET")
+     */
+    public function deleteVideoAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $video = $em->getRepository('AppBundle:Video')->find($id);
+            $em->remove($video);
+            $em->flush();
+        } else {
+            throw $this->createAccessDeniedException("Ce que vous voulez voir n'est pas accessible.");
+        }
+
+        return new Response('Playlist "'.$video->getTitle().'" bien supprimée !');
+    }
+
+    /**
      * @Route("/get-videos", name="app_admin_show_playlist_videos")
      * @Method("GET")
      */
@@ -113,7 +131,7 @@ class AjaxController extends Controller
     }
 
     /**
-     * @Route("/create-playlist", name="app_admin_create_playlsit")
+     * @Route("/create-playlist", name="app_admin_create_playlist")
      * @Method("POST")
      */
     public function createPlaylist(Request $request)
@@ -134,7 +152,7 @@ class AjaxController extends Controller
     }
 
     /**
-     * @Route("/delete-playlist/{id}", name="app_admin_delete_playlsit")
+     * @Route("/delete-playlist/{id}", name="app_admin_delete_playlist")
      * @Method("GET")
      */
     public function deletePlaylist(Request $request, $id)

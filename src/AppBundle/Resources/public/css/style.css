@@ -154,10 +154,10 @@ h1.page-header {
 .video-miniature{
     float: left;
 }
-.diffusion{
+/*.diffusion{
     margin-top:55%;
 }
-.diffuser-video{
+*/.diffuser-video{
     color:#017eba;
 }
 .playlist-jour{
