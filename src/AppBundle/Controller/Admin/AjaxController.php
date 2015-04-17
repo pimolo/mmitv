@@ -74,7 +74,12 @@ class AjaxController extends Controller
         $author = $infos->author_name;
 
         $embed_code = $infos->html;
-        $duration = 120;
+
+        parse_str(parse_url($url, PHP_URL_QUERY)); // $v = l'id de la video
+        $youtubeAPiInfos = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='.$v.'&key=AIzaSyDyuaEAiMbpH9WCMOKKZjHjfvev_1aRlzs'));
+        $dur = $youtubeAPiInfos->items[0]->contentDetails->duration;
+        $dura = new \DateInterval($dur);
+        $duration = $this->reverse($dura->format('%i:%s'));
 
         $playlistId = $request->request->get('playlist_id');
         $playlist = $em->getRepository('AppBundle:Playlist')->find($playlistId);
@@ -168,5 +173,12 @@ class AjaxController extends Controller
         } else {
             throw $this->createAccessDeniedException("Ce que vous voulez faire n'est pas possible.");
         }
+    }
+
+    private function reverse($secs)
+    {
+        list($i, $s) = explode(':', $secs);
+
+        return $i*60 + $s;
     }
 }
