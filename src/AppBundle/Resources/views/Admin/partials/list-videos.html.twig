@@ -11,7 +11,7 @@
                     <div class="col-md-6">
                         <p>{{ video.title }}</p>
                         <p>{{ video.author }}</p>
-                        <p>{{ video.duration|date('i:s') }}</p>
+                        <p>{{ video.duration }}</p>
                         <p><a href="delete-video/{{ video.id }}" data-toggle="ajax" data-update="confirmDeleteVideo">Supprimer cette vidéo</a></p>
                         <p id="confirmDeleteVideo"></p>
                     </div>

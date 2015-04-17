@@ -56,7 +56,7 @@
 
             <div id='external-events'>
 {% for video in playlists|first.videos %}
-                <div class="fc-event" data-duration="{{ video.duration }}" data-event='{"id": "{{ video.id }}", "title": "{{ video.title }}", "stick": true}'><p>{{ video.title }} </p><img class="img-responsive" /></div>
+                <div class="fc-event" data-duration="{{ video.duration|date('i:s') }}" data-event='{"id": "{{ video.id }}", "title": "{{ video.title }}", "stick": true}'><p>{{ video.title }} </p><img class="img-responsive" /></div>
 {% endfor %}
                 <p>
                     <input type='checkbox' id='drop-remove' checked/>
@@ -129,9 +129,10 @@ $('select').change(function() {
         },
         defaultView: 'agendaWeek', // affichage par semaine
         timeFormat: 'H:mm', //
-        minTime: "08:00:00", // Debut de la journée a 8h
+        minTime: "06:30:00", // Debut de la journée a 8h
         maxTime: "18:30:00", // fin de la journée 18h
         allDaySlot: false, // Retirer la colonne allDay
+        slotDuration: '00:05:00',
         dayNamesShort: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'], // Nom des date en fr et complete
         editable:false,
         eventDurationEditable: false,

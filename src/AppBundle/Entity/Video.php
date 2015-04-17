@@ -45,7 +45,7 @@ class Video
     /**
      * @var integer
      *
-     * @ORM\Column(name="duration", type="integer")
+     * @ORM\Column(name="duration", type="string", length=255)
      */
     private $duration;
 
@@ -120,7 +120,7 @@ class Video
     /**
      * Set duration
      *
-     * @param  integer $duration
+     * @param  string $duration
      * @return Video
      */
     public function setDuration($duration)
@@ -133,11 +133,11 @@ class Video
     /**
      * Get duration
      *
-     * @return integer
+     * @return string
      */
     public function getDuration()
     {
-        return date('H:i:s', $this->duration);
+        return $this->duration;
     }
 
     /**
