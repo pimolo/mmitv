@@ -74,7 +74,12 @@ class AjaxController extends Controller
         $author = $infos->author_name;
 
         $embed_code = $infos->html;
-        $duration = 120;
+
+        parse_str(parse_url($url, PHP_URL_QUERY)); // $v = l'id de la video
+        $youtubeAPiInfos = json_decode(file_get_contents('https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='.$v.'&key=AIzaSyDyuaEAiMbpH9WCMOKKZjHjfvev_1aRlzs'));
+        $dur = $youtubeAPiInfos->items[0]->contentDetails->duration;
+        $dura = new \DateInterval($dur);
+        $duration = $this->reverse($dura->format('%i:%s'));
 
         $playlistId = $request->request->get('playlist_id');
         $playlist = $em->getRepository('AppBundle:Playlist')->find($playlistId);
@@ -89,6 +94,24 @@ class AjaxController extends Controller
         $em->flush();
 
         return new Response('Vidéo "'.$title.'" ('.$infos->provider_name.') bien ajoutée à la playlist '.$playlist->getTitle().' !', 200, array('Content-Type' => 'text/html'));
+    }
+
+    /**
+     * @Route("/delete-video/{id}", name="app_admin_delete_video")
+     * @Method("GET")
+     */
+    public function deleteVideoAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $video = $em->getRepository('AppBundle:Video')->find($id);
+            $em->remove($video);
+            $em->flush();
+        } else {
+            throw $this->createAccessDeniedException("Ce que vous voulez voir n'est pas accessible.");
+        }
+
+        return new Response('Playlist "'.$video->getTitle().'" bien supprimée !');
     }
 
     /**
@@ -113,7 +136,7 @@ class AjaxController extends Controller
     }
 
     /**
-     * @Route("/create-playlist", name="app_admin_create_playlsit")
+     * @Route("/create-playlist", name="app_admin_create_playlist")
      * @Method("POST")
      */
     public function createPlaylist(Request $request)
@@ -134,7 +157,7 @@ class AjaxController extends Controller
     }
 
     /**
-     * @Route("/delete-playlist/{id}", name="app_admin_delete_playlsit")
+     * @Route("/delete-playlist/{id}", name="app_admin_delete_playlist")
      * @Method("GET")
      */
     public function deletePlaylist(Request $request, $id)
@@ -150,5 +173,12 @@ class AjaxController extends Controller
         } else {
             throw $this->createAccessDeniedException("Ce que vous voulez faire n'est pas possible.");
         }
+    }
+
+    private function reverse($secs)
+    {
+        list($i, $s) = explode(':', $secs);
+
+        return $i*60 + $s;
     }
 }
